@@ -64,9 +64,14 @@ public class MainActivity extends AppCompatActivity {
             intentToMySubjects.putExtra("subject", subjects);
             startActivity(intentToMySubjects);
         });
+
         grade1Add.setOnClickListener(view -> {
             Intent intentToAddSubjects = new Intent(getApplicationContext(),AddGradeSubjectsActivity.class);
-
+            String sql = "select * from mySubjects where year=1";
+            ArrayList<MySubjects> subjects = getSubjects(sql);
+            intentToAddSubjects.putExtra("subject", subjects);
+            intentToAddSubjects.putExtra("year", 1);
+            startActivity(intentToAddSubjects);
         });
 
         initTextViews();
@@ -189,6 +194,8 @@ public class MainActivity extends AppCompatActivity {
             MySubjects ms = new MySubjects(year,subject,score,weight,major,majorSpecific);
             tempList.add(ms);
         }
+        cursor.close();
+        sqlDB.close();
         return tempList;
     }
 }

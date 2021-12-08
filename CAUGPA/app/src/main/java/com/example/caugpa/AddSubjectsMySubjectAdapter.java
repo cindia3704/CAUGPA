@@ -9,22 +9,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
-public class MySubjectsAdapter extends RecyclerView.Adapter<MySubjectsAdapter.ViewHolder> {
+public class AddSubjectsMySubjectAdapter extends RecyclerView.Adapter<AddSubjectsMySubjectAdapter.ViewHolder> {
     private ArrayList<MySubjects> mySubjectsList;
 
     @NonNull
     @Override
-    public MySubjectsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_subjects_item, parent, false);
-        return new ViewHolder(view);
+    public AddSubjectsMySubjectAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_page_my_subjects_item, parent, false);
+        return new AddSubjectsMySubjectAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MySubjectsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AddSubjectsMySubjectAdapter.ViewHolder holder, int position) {
         holder.onBind(mySubjectsList.get(position));
     }
 
@@ -43,14 +41,16 @@ public class MySubjectsAdapter extends RecyclerView.Adapter<MySubjectsAdapter.Vi
         TextView subjectName;
         TextView subjectGrade;
         TextView subjectCategory;
+        ImageView minus;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            subjectYear = (TextView) itemView.findViewById(R.id.item_year);
-            subjectName = (TextView) itemView.findViewById(R.id.item_subject);
-            subjectGrade = (TextView) itemView.findViewById(R.id.item_gpa);
-            subjectCategory= (TextView) itemView.findViewById(R.id.item_major);
+            subjectYear = (TextView) itemView.findViewById(R.id.subject_year);
+            subjectName = (TextView) itemView.findViewById(R.id.subject_subject);
+            subjectGrade = (TextView) itemView.findViewById(R.id.subject_gpa);
+            subjectCategory= (TextView) itemView.findViewById(R.id.subject_major);
+            minus = (ImageView) itemView.findViewById(R.id.subject_minus);
         }
 
         void onBind(MySubjects item){
@@ -71,6 +71,9 @@ public class MySubjectsAdapter extends RecyclerView.Adapter<MySubjectsAdapter.Vi
             subjectName.setText(item.getSubject());
             subjectGrade.setText(""+item.getScore());
             subjectCategory.setText(subCategory);
+            minus.setOnClickListener(view -> {
+               mySubjectsList.remove(item);
+            });
         }
     }
 }
