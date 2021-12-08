@@ -1,10 +1,15 @@
 package com.example.caugpa;
 
+import android.app.Activity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +18,13 @@ import java.util.ArrayList;
 
 public class AddSubjectsMySubjectAdapter extends RecyclerView.Adapter<AddSubjectsMySubjectAdapter.ViewHolder> {
     private ArrayList<MySubjects> mySubjectsList;
+    public interface onItemClickListener{
+        void onItemClick(View v, int pos);
+    }
+    private onItemClickListener mListener = null;
+    public void setOnItemClickListener(onItemClickListener listener){
+        this.mListener = listener;
+    }
 
     @NonNull
     @Override
@@ -51,15 +63,26 @@ public class AddSubjectsMySubjectAdapter extends RecyclerView.Adapter<AddSubject
             subjectGrade = (TextView) itemView.findViewById(R.id.subject_gpa);
             subjectCategory= (TextView) itemView.findViewById(R.id.subject_major);
             minus = (ImageView) itemView.findViewById(R.id.subject_minus);
+
+            minus.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                if(pos!=RecyclerView.NO_POSITION){
+                    if(mListener !=null){
+                        mListener.onItemClick(v,pos);
+                    }
+                }
+                mySubjectsList.remove(pos);
+                notifyDataSetChanged();
+            });
         }
 
         void onBind(MySubjects item){
             String subCategory;
             String major = item.getMajor();
-            if(major == "N"){
-                if(item.getMajorSpecific()=="ADV"){
+            if(major.equals("Y")){
+                if(item.getMajorSpecific().equals("ADV")){
                     subCategory = "전공심화";
-                }else if(item.getMajorSpecific()=="BASIC"){
+                }else if(item.getMajorSpecific().equals("BASIC")){
                     subCategory = "전공기초";
                 }else{
                     subCategory = "전공필수";
@@ -71,9 +94,10 @@ public class AddSubjectsMySubjectAdapter extends RecyclerView.Adapter<AddSubject
             subjectName.setText(item.getSubject());
             subjectGrade.setText(""+item.getScore());
             subjectCategory.setText(subCategory);
-            minus.setOnClickListener(view -> {
-               mySubjectsList.remove(item);
-            });
+//            minus.setOnClickListener(view -> {
+////               mySubjectsList.remove(item);
+//            });
         }
     }
+
 }

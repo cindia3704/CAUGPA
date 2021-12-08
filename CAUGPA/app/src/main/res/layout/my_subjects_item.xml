@@ -24,7 +24,7 @@
             android:textColor="#000"/>
         <TextView
             android:id="@+id/item_subject"
-            android:layout_width="150dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:text="과목"
             android:textColor="@color/BLACK"

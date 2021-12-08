@@ -77,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
         initTextViews();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initTextViews();
+    }
+
     // 모든 textview 평점 계산하기
     private void initTextViews(){
         String sqlTotal ="select * from mySubjects";
@@ -86,29 +92,12 @@ public class MainActivity extends AppCompatActivity {
         String sqlGrade3 ="select * from mySubjects where year=3";
         String sqlGrade4 ="select * from mySubjects where year=4";
 
-        totalScore.setText(calculateGPA(sqlTotal)+TotalGPA);
-        majorScore.setText(calculateGPA(sqlMajor)+TotalGPA);
-        grade1Score.setText(calculateGPA(sqlGrade1)+TotalGPA);
-        grade2Score.setText(calculateGPA(sqlGrade2)+TotalGPA);
-        grade3Score.setText(calculateGPA(sqlGrade3)+TotalGPA);
-        grade4Score.setText(calculateGPA(sqlGrade4)+TotalGPA);
-    }
-
-
-    public class myDBHelper extends SQLiteOpenHelper{
-        public myDBHelper(Context context){
-            super(context,"groupDB",null,1);
-        }
-        @Override
-        public void onCreate(SQLiteDatabase db){
-            db.execSQL("create table mySubjects(id integer, sName char(100), year integer, score char(10), weight integer, major char(20), majorSpecific char(100));");
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("drop table if exists mySubjects;");
-            onCreate(db);
-        }
+        totalScore.setText(String.format("%.2f",calculateGPA(sqlTotal))+TotalGPA);
+        majorScore.setText(String.format("%.2f",calculateGPA(sqlMajor))+TotalGPA);
+        grade1Score.setText(String.format("%.2f",calculateGPA(sqlGrade1))+TotalGPA);
+        grade2Score.setText(String.format("%.2f",calculateGPA(sqlGrade2))+TotalGPA);
+        grade3Score.setText(String.format("%.2f",calculateGPA(sqlGrade3))+TotalGPA);
+        grade4Score.setText(String.format("%.2f",calculateGPA(sqlGrade4))+TotalGPA);
     }
 
     public void initializeDB(View view){
@@ -185,13 +174,14 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<MySubjects> tempList = new ArrayList<>();
 
         while(cursor.moveToNext()){
+            int id = cursor.getInt(0);
             String subject = cursor.getString(1);
             int year = cursor.getInt(2);
             String score=cursor.getString(3);
             int weight=cursor.getInt(4);
             String major=cursor.getString(5);
             String majorSpecific=cursor.getString(6);
-            MySubjects ms = new MySubjects(year,subject,score,weight,major,majorSpecific);
+            MySubjects ms = new MySubjects(year,subject,score,weight,major,majorSpecific,id);
             tempList.add(ms);
         }
         cursor.close();

@@ -1,5 +1,6 @@
 package com.example.caugpa;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,15 +57,18 @@ public class MySubjectsAdapter extends RecyclerView.Adapter<MySubjectsAdapter.Vi
         void onBind(MySubjects item){
             String subCategory;
             String major = item.getMajor();
-            if(major == "N"){
-                if(item.getMajorSpecific()=="ADV"){
+
+            if(major.equals("Y")){
+                Log.d("major",major+"   "+item.getMajorSpecific());
+                if(item.getMajorSpecific().equals("ADV")){
                     subCategory = "전공심화";
-                }else if(item.getMajorSpecific()=="BASIC"){
+                }else if(item.getMajorSpecific().equals("BASIC")){
                     subCategory = "전공기초";
                 }else{
                     subCategory = "전공필수";
                 }
             }else{
+                Log.d("major",major+"   "+item.getMajorSpecific());
                 subCategory = "교양";
             }
             subjectYear.setText(""+item.getYear()+"학년");
