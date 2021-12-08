@@ -19,6 +19,11 @@ public class AddGradeSubjectsActivity extends AppCompatActivity {
     private AddSubjectsMySubjectAdapter mRecyclerAdapter;
     private ArrayList<MySubjects> mySubjectList;
 
+    private RecyclerView aRecyclerView;
+    private NewSubjectsAdapter aRecyclerAdapter;
+
+    private ArrayList<AllSubjects> allSubjectList;
+
     private TextView title;
 
     @Override
@@ -27,12 +32,16 @@ public class AddGradeSubjectsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_grade_subjects);
         title = findViewById(R.id.addSubjects_title);
         title.setText(""+(Integer)getIntent().getIntExtra("year", 0)+"학년 과목");
+
         mySubjectList = (ArrayList<MySubjects>)getIntent().getSerializableExtra("subject");
+        allSubjectList = (ArrayList<AllSubjects>)getIntent().getSerializableExtra("all");
 
         mRecyclerView = (RecyclerView) findViewById(R.id.addSub_recyclerView_mySubs);
+        aRecyclerView = (RecyclerView)findViewById(R.id.addSub_recyclerView_moreSubs);
 
         /* initiate adapter */
         mRecyclerAdapter = new AddSubjectsMySubjectAdapter();
+        aRecyclerAdapter =  new NewSubjectsAdapter();
 
         /* initiate recyclerview */
         mRecyclerView.setAdapter(mRecyclerAdapter);
@@ -46,6 +55,18 @@ public class AddGradeSubjectsActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        aRecyclerView.setAdapter(aRecyclerAdapter);
+        aRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        aRecyclerAdapter.setMySubjectsList(allSubjectList);
+        aRecyclerAdapter.setOnItemClickListener(
+                new NewSubjectsAdapter.onItemClickListener(){
+                    @Override
+                    public void onItemClick(View v, int pos) {
+                        addSubjects(allSubjectList.get(pos).getId());
+                    }
+                }
+        );
     }
 
     public void deleteSubjects(int id){
@@ -54,5 +75,9 @@ public class AddGradeSubjectsActivity extends AppCompatActivity {
         SQLiteDatabase sqlDB = myDBHelper.getReadableDatabase();
         sqlDB.delete("mySubjects","id=?",new String[]{""+id});
         sqlDB.close();
+    }
+
+    public void addSubjects(int id){
+
     }
 }

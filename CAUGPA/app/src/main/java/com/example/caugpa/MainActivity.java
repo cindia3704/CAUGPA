@@ -71,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<MySubjects> subjects = getSubjects(sql);
             intentToAddSubjects.putExtra("subject", subjects);
             intentToAddSubjects.putExtra("year", 1);
+
+            String sqlAll = "select * from allSubjects";
+            ArrayList<AllSubjects> allSubjects = getAllSubjects(sqlAll);
+            intentToAddSubjects.putExtra("all", allSubjects);
             startActivity(intentToAddSubjects);
         });
 
@@ -183,6 +187,28 @@ public class MainActivity extends AppCompatActivity {
             String majorSpecific=cursor.getString(6);
             MySubjects ms = new MySubjects(year,subject,score,weight,major,majorSpecific,id);
             tempList.add(ms);
+        }
+        cursor.close();
+        sqlDB.close();
+        return tempList;
+    }
+    public ArrayList<AllSubjects> getAllSubjects(String sql){
+        myDBHelper myDBHelper = new myDBHelper(this);
+        SQLiteDatabase sqlDB = myDBHelper.getReadableDatabase();
+        Cursor cursor;
+        cursor = sqlDB.rawQuery(sql,null);
+
+        ArrayList<AllSubjects> tempList = new ArrayList<>();
+
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(0);
+            String subject = cursor.getString(1);
+            int year = cursor.getInt(2);
+            int weight=cursor.getInt(3);
+            String major=cursor.getString(4);
+            String majorSpecific=cursor.getString(5);
+            AllSubjects as = new AllSubjects(year,subject,weight,major,majorSpecific,id);
+            tempList.add(as);
         }
         cursor.close();
         sqlDB.close();
