@@ -37,9 +37,6 @@ public class AllSubjects implements Serializable {
         return score;
     }
 
-//    public String getScore(){
-//        return score;
-//    }
 
     public String getMajor(){
         return major;
