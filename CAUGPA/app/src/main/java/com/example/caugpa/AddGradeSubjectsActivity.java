@@ -109,13 +109,12 @@ public class AddGradeSubjectsActivity extends AppCompatActivity {
         cv.put("weight", addedSubjectList.get(id).getWeight());
         cv.put("major", addedSubjectList.get(id).getMajor());
         cv.put("majorSpecific", addedSubjectList.get(id).getMajorSpecific());
-        Toast.makeText(this,"성적:"+addedSubjectList.get(id).getScore(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,"성적:"+addedSubjectList.get(id).getScore(), Toast.LENGTH_SHORT).show();
 
         long result = sqlDB.insert("mySubjects",null,cv);
         if(result == -1){
             Toast.makeText(this,"과목 추가 실패", Toast.LENGTH_SHORT).show();
         }
-        notifyAll();
         sqlDB.close();
     }
 }

@@ -76,12 +76,10 @@ public class NewSubjectsAdapter extends RecyclerView.Adapter<NewSubjectsAdapter.
                         String value = subjectGpa.getText().toString();
                         Log.d("VAL",value);
                         subjectGpa.setText(value);
-//                        allSubjectsList.get(pos).setScore(value);
+                        allSubjectsList.get(pos).setScore(value);
                         mListener.onItemClick(v,pos,value);
                     }
                 }
-                notifyDataSetChanged();
-
             });
         }
 
