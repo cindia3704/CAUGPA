@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -60,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         seeAllSub.setOnClickListener(view -> {
             Intent intentToMySubjects = new Intent(getApplicationContext(), com.example.CAUGPA.MySubjectsActivity.class);
             startActivity(intentToMySubjects);
+        });
+        grade1Add.setOnClickListener(view -> {
+            Intent intentToAddSubjects = new Intent(getApplicationContext(),AddGradeSubjectsActivity.class);
+
         });
 
         initTextViews();
@@ -110,19 +113,23 @@ public class MainActivity extends AppCompatActivity {
     public double calculateGPA(String sql){
         myDBHelper myDBHelper = new myDBHelper(this);
         SQLiteDatabase sqlDB = myDBHelper.getReadableDatabase();
-//        String sql = "select * from mySubjects";
         Cursor cursor;
         cursor = sqlDB.rawQuery(sql,null);
 
         double totalGPAScore = 0.00;
         double totalGPAWeight = 0.00;
         double totalWeights = 0.00;
+        int count = 0;
         while(cursor.moveToNext()){
+            count++;
             String score = cursor.getString(3);
             Integer weights = cursor.getInt(4);
             double scoreDouble = 0.0;
             switch (score){
                 case "A+":
+                    scoreDouble = 4.5;
+                    break;
+                case "P":
                     scoreDouble = 4.5;
                     break;
                 case "A":
@@ -149,13 +156,17 @@ public class MainActivity extends AppCompatActivity {
                 default:
                     scoreDouble = 0.0;
             }
-            totalGPAWeight+=scoreDouble;
+            totalGPAWeight+=scoreDouble*(double)weights;
             totalWeights +=(double)weights;
         }
+        Toast.makeText(this,count+"!!",Toast.LENGTH_SHORT).show();
+        // 아무것도 없을때 예외 처리
         if(totalWeights>0) {
             totalGPAScore = totalGPAWeight / totalWeights;
         }
-//        totalScore.setText(totalGPAScore+TotalGPA);
+
+        cursor.close();
+        sqlDB.close();
         return totalGPAScore;
     }
 }
