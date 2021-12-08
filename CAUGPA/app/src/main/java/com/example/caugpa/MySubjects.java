@@ -21,6 +21,14 @@ public class MySubjects implements Serializable {
         this.id = id;
     }
 
+    public MySubjects(int year, String subject, String score,int weight,String major, String majorSpecific) {
+        this.year = year;
+        this.subject= subject;
+        this.score = score;
+        this.weight = weight;
+        this.major = major;
+        this.majorSpecific = majorSpecific;
+    }
     public int getId(){
         return id;
     }
@@ -38,6 +46,9 @@ public class MySubjects implements Serializable {
 
     public String getMajor(){
         return major;
+    }
+    public int getWeight(){
+        return weight;
     }
 
     public String getMajorSpecific(){

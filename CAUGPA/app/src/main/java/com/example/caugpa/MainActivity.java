@@ -78,6 +78,44 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentToAddSubjects);
         });
 
+//        grade2Add.setOnClickListener(view -> {
+//            Intent intentToAddSubjects2 = new Intent(getApplicationContext(),AddGradeSubjectsActivity.class);
+//            String sql = "select * from mySubjects where year=2";
+//            ArrayList<MySubjects> subjects = getSubjects(sql);
+//            intentToAddSubjects2.putExtra("subject", subjects);
+//            intentToAddSubjects2.putExtra("year", 2);
+//
+//            String sqlAll = "select * from allSubjects";
+//            ArrayList<AllSubjects> allSubjects = getAllSubjects(sqlAll);
+//            intentToAddSubjects2.putExtra("all", allSubjects);
+//            startActivity(intentToAddSubjects2);
+//        });
+//
+//        grade3Add.setOnClickListener(view -> {
+//            Intent intentToAddSubjects3 = new Intent(getApplicationContext(),AddGradeSubjectsActivity.class);
+//            String sql = "select * from mySubjects where year=3";
+//            ArrayList<MySubjects> subjects = getSubjects(sql);
+//            intentToAddSubjects3.putExtra("subject", subjects);
+//            intentToAddSubjects3.putExtra("year", 3);
+//
+//            String sqlAll = "select * from allSubjects";
+//            ArrayList<AllSubjects> allSubjects = getAllSubjects(sqlAll);
+//            intentToAddSubjects3.putExtra("all", allSubjects);
+//            startActivity(intentToAddSubjects3);
+//        });
+//
+//        grade4Add.setOnClickListener(view -> {
+//            Intent intentToAddSubjects4 = new Intent(getApplicationContext(),AddGradeSubjectsActivity.class);
+//            String sql = "select * from mySubjects where year=4";
+//            ArrayList<MySubjects> subjects = getSubjects(sql);
+//            intentToAddSubjects4.putExtra("subject", subjects);
+//            intentToAddSubjects4.putExtra("year", 4);
+//
+//            String sqlAll = "select * from allSubjects";
+//            ArrayList<AllSubjects> allSubjects = getAllSubjects(sqlAll);
+//            intentToAddSubjects4.putExtra("all", allSubjects);
+//            startActivity(intentToAddSubjects4);
+//        });
         initTextViews();
     }
 

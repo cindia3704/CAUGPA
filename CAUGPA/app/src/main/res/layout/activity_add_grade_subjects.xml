@@ -31,8 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/addSub_recyclerView_mySubs"
-        android:text="과목 추가하기"
-        android:textSize="25dp"
+        android:text="모든 과목 보기"
+        android:textSize="20dp"
         android:layout_marginTop="15dp"
         android:textColor="@color/WHITE"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -44,7 +44,19 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="280dp"/>
+        android:layout_height="250dp"/>
+<Button
+    android:id="@+id/addSubjects"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="과목 추가하기"
+    android:textStyle="bold"
+    android:textSize="20dp"
+    android:layout_margin="10dp"
+    android:background="@color/colorPrimary"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,18 @@
 package com.example.caugpa;
 
+import android.graphics.Color;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,9 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class NewSubjectsAdapter extends RecyclerView.Adapter<NewSubjectsAdapter.ViewHolder> {
+    String[] gradeItems={"선택","A+","A","B+","B","C+","C","D+","D","F","P"};
+
     private ArrayList<AllSubjects> allSubjectsList;
+
     public interface onItemClickListener{
-        void onItemClick(View v, int pos);
+        void onItemClick(View v,int pos, String value);
     }
     private NewSubjectsAdapter.onItemClickListener mListener = null;
     public void setOnItemClickListener(NewSubjectsAdapter.onItemClickListener listener){
@@ -46,28 +57,31 @@ public class NewSubjectsAdapter extends RecyclerView.Adapter<NewSubjectsAdapter.
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView subjectYear;
         TextView subjectName;
-        TextView subjectGrade;
         TextView subjectCategory;
-        ImageView minus;
+        EditText subjectGpa;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            subjectYear = (TextView) itemView.findViewById(R.id.subject_year);
-            subjectName = (TextView) itemView.findViewById(R.id.subject_subject);
-            subjectGrade = (TextView) itemView.findViewById(R.id.subject_gpa);
-            subjectCategory= (TextView) itemView.findViewById(R.id.subject_major);
-            minus = (ImageView) itemView.findViewById(R.id.subject_minus);
+            subjectYear = (TextView) itemView.findViewById(R.id.class_year);
+            subjectName = (TextView) itemView.findViewById(R.id.class_subject);
+            subjectCategory= (TextView) itemView.findViewById(R.id.class_major);
+            subjectGpa = (EditText) itemView.findViewById(R.id.class_gpa);
 
-            minus.setOnClickListener(v -> {
+            itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 if(pos!= RecyclerView.NO_POSITION){
                     if(mListener !=null){
-                        mListener.onItemClick(v,pos);
+                        v.setBackgroundColor(Color.GRAY);
+                        String value = subjectGpa.getText().toString();
+                        Log.d("VAL",value);
+                        subjectGpa.setText(value);
+//                        allSubjectsList.get(pos).setScore(value);
+                        mListener.onItemClick(v,pos,value);
                     }
                 }
-                allSubjectsList.remove(pos);
                 notifyDataSetChanged();
+
             });
         }
 
@@ -88,6 +102,25 @@ public class NewSubjectsAdapter extends RecyclerView.Adapter<NewSubjectsAdapter.
             subjectYear.setText(""+item.getYear()+"학년");
             subjectName.setText(item.getSubject());
             subjectCategory.setText(subCategory);
+//            subjectGpa.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                }
+//
+//                @Override
+//                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable editable) {
+//                    String value = subjectGpa.getText().toString();
+//                    if(!value.equals("")){
+//                        item.setScore(value);
+//                    }
+//                }
+//            });
         }
     }
 

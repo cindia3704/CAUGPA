@@ -7,6 +7,7 @@ public class AllSubjects implements Serializable {
     public String subject;
     public int year;
     public int weight;
+    public String score;
     public String major;
     public String majorSpecific;
 
@@ -25,9 +26,15 @@ public class AllSubjects implements Serializable {
     public String getSubject() {
         return subject;
     }
+    public void setScore(String score){
+        this.score = score;
+    }
 
     public int getYear(){
         return year;
+    }
+    public String getScore(){
+        return score;
     }
 
 //    public String getScore(){
@@ -36,6 +43,9 @@ public class AllSubjects implements Serializable {
 
     public String getMajor(){
         return major;
+    }
+    public int getWeight(){
+        return weight;
     }
 
     public String getMajorSpecific(){
