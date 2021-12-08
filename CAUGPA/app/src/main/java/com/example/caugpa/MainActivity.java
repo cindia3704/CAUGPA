@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -58,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
         seeAllSub.setOnClickListener(view -> {
             Intent intentToMySubjects = new Intent(getApplicationContext(), com.example.CAUGPA.MySubjectsActivity.class);
+            String sql = "select * from mySubjects";
+            ArrayList<MySubjects> subjects = getSubjects(sql);
+            intentToMySubjects.putExtra("subject", subjects);
             startActivity(intentToMySubjects);
         });
         grade1Add.setOnClickListener(view -> {
@@ -119,9 +123,7 @@ public class MainActivity extends AppCompatActivity {
         double totalGPAScore = 0.00;
         double totalGPAWeight = 0.00;
         double totalWeights = 0.00;
-        int count = 0;
         while(cursor.moveToNext()){
-            count++;
             String score = cursor.getString(3);
             Integer weights = cursor.getInt(4);
             double scoreDouble = 0.0;
@@ -159,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
             totalGPAWeight+=scoreDouble*(double)weights;
             totalWeights +=(double)weights;
         }
-        Toast.makeText(this,count+"!!",Toast.LENGTH_SHORT).show();
         // 아무것도 없을때 예외 처리
         if(totalWeights>0) {
             totalGPAScore = totalGPAWeight / totalWeights;
@@ -168,5 +169,26 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
         sqlDB.close();
         return totalGPAScore;
+    }
+
+    public ArrayList<MySubjects> getSubjects(String sql){
+        myDBHelper myDBHelper = new myDBHelper(this);
+        SQLiteDatabase sqlDB = myDBHelper.getReadableDatabase();
+        Cursor cursor;
+        cursor = sqlDB.rawQuery(sql,null);
+
+        ArrayList<MySubjects> tempList = new ArrayList<>();
+
+        while(cursor.moveToNext()){
+            String subject = cursor.getString(1);
+            int year = cursor.getInt(2);
+            String score=cursor.getString(3);
+            int weight=cursor.getInt(4);
+            String major=cursor.getString(5);
+            String majorSpecific=cursor.getString(6);
+            MySubjects ms = new MySubjects(year,subject,score,weight,major,majorSpecific);
+            tempList.add(ms);
+        }
+        return tempList;
     }
 }
