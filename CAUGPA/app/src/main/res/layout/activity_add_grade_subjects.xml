@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@id/addSub_recyclerView_mySubs"
         android:text="모든 과목 보기"
         android:textSize="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/WHITE"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>

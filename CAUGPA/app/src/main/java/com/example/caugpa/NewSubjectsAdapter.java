@@ -100,25 +100,6 @@ public class NewSubjectsAdapter extends RecyclerView.Adapter<NewSubjectsAdapter.
             subjectYear.setText(""+item.getYear()+"학년");
             subjectName.setText(item.getSubject());
             subjectCategory.setText(subCategory);
-//            subjectGpa.addTextChangedListener(new TextWatcher() {
-//                @Override
-//                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                }
-//
-//                @Override
-//                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                }
-//
-//                @Override
-//                public void afterTextChanged(Editable editable) {
-//                    String value = subjectGpa.getText().toString();
-//                    if(!value.equals("")){
-//                        item.setScore(value);
-//                    }
-//                }
-//            });
         }
     }
 

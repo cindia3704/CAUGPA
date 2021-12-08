@@ -17,12 +17,14 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
+    boolean noBasic = false;
     private Button initializeDB;
     private Button seeAllSub;
     private Button grade1Add;
     private Button grade2Add;
     private Button grade3Add;
     private Button grade4Add;
+    private Button basicMajorFlag;
 
     private TextView totalScore;
     private TextView majorScore;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         grade2Add = findViewById(R.id.grade2AddSubject);
         grade3Add = findViewById(R.id.grade3AddSubject);
         grade4Add = findViewById(R.id.grade4AddSubject);
+        basicMajorFlag = findViewById(R.id.noBasicMajor);
 
         totalScore = findViewById(R.id.totalGPAScore);
         majorScore = findViewById(R.id.majorGPAScore);
@@ -117,6 +120,17 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentToAddSubjects4);
         });
         initTextViews();
+        basicMajorFlag.setOnClickListener(view -> {
+            noBasic = !noBasic;
+            String sqlNoBasic ="select * from mySubjects where majorSpecific='ADV' or majorSpecific='REQ'";
+            String sqlMajor ="select * from mySubjects where major='Y'";
+
+            if(noBasic){
+                majorScore.setText(String.format("%.2f",calculateGPA(sqlNoBasic))+TotalGPA);
+            }else{
+                majorScore.setText(String.format("%.2f",calculateGPA(sqlMajor))+TotalGPA);
+            }
+        });
     }
 
     @Override

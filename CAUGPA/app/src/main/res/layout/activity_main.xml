@@ -40,7 +40,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_major"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/main_total"
@@ -63,12 +63,23 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@id/majorGPAMent"
-            app:layout_constraintRight_toRightOf="parent"
             android:layout_marginLeft="10dp"
             android:text="4.21/4.5"
             android:textSize="30dp"
             android:textColor="@color/WHITE"
             android:textStyle="bold"/>
+        <Button
+            android:id="@+id/noBasicMajor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="30dp"
+            android:background="@color/colorPrimary"
+            android:text="전기 빼기/넣기"
+            android:textStyle="bold"
+            android:textSize="15dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_grade1"
