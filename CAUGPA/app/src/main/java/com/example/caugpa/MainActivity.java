@@ -3,10 +3,7 @@ package com.example.caugpa;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
-import com.example.caugpa.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {
